@@ -1,0 +1,115 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* --- Skills Carousel (Marquee) --- */
+.skills-carousel {
+    position: relative;
+    overflow: hidden; /* Hide the overflowing content */
+}
+
+/* Visual fade effect at the edges */
+.skills-carousel::before,
+.skills-carousel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100px; /* Width of the fade */
+    z-index: 2;
+}
+
+.skills-carousel::before {
+    left: 0;
+    background: linear-gradient(to right, #fff, transparent);
+}
+
+.skills-carousel::after {
+    right: 0;
+    background: linear-gradient(to left, #fff, transparent);
+}
+
+/* Dark mode fade effect */
+.dark .skills-carousel::before {
+    background: linear-gradient(to right, #1f2937, transparent); /* gray-800 */
+}
+.dark .skills-carousel::after {
+    background: linear-gradient(to left, #1f2937, transparent); /* gray-800 */
+}
+
+.skills-track {
+    display: flex;
+    /* 12 items * 160px (120 width + 40 margin) = 1920px */
+    width: calc(160px * 24); 
+    animation: scroll 40s linear infinite; /* Continuous animation */
+}
+
+.skills-carousel:hover .skills-track {
+    animation-play-state: paused; /* Pause on hover */
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 120px; /* Fixed width */
+    height: 120px; /* Fixed height */
+    margin: 15px 20px; /* Add vertical margin to prevent cutoff on scale */
+    background-color: #f8f9fa; /* gray-100 */
+    border-radius: 50%;
+    border: 1px solid #e5e7eb; /* gray-200 */
+    transition: transform 0.3s, box-shadow 0.3s;
+    flex-shrink: 0; /* Prevent items from shrinking */
+}
+
+.skill-item:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* shadow-lg */
+    z-index: 3; /* Ensure the hovered item is on top of the fade effect */
+    position: relative; /* Required for z-index to work */
+}
+
+.skill-item i {
+    font-size: 3.5rem;
+}
+
+.skill-item span {
+    margin-top: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #4b5563; /* gray-600 */
+}
+
+/* Dark mode styles for skill items */
+.dark .skill-item {
+    background-color: #374151; /* gray-700 */
+    border-color: #4b5563; /* gray-600 */
+}
+
+.dark .skill-item span {
+    color: #d1d5db; /* gray-300 */
+}
+
+/* --- Scroll animation styles --- */
+.scroll-target {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-target.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animation keyframes for the continuous scroll */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        /* Move by the width of the original 12 items */
+        transform: translateX(calc(-160px * 12));
+    }
+}

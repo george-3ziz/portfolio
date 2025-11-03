@@ -72,6 +72,13 @@ body.dark {
     height: 70vh; /* Define a height for the floating area */
     min-height: 500px;
 }
+/* On smaller screens, reduce the height of the skills container */
+@media (max-width: 768px) {
+    #skills {
+        height: 60vh;
+        min-height: 450px;
+    }
+}
 
 .skills-container {
     position: relative;
@@ -86,11 +93,17 @@ body.dark {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100px; /* Smaller size for floating */
+    width: 100px;
     height: 100px;
     /* The animation-name will be set individually for each item */
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
+}
+
+@media (max-width: 768px) {
+    .skill-item {
+        transform: scale(0.8); /* Scale down the items on mobile */
+    }
 }
 
 /* Stagger animations for a random effect */
@@ -196,4 +209,14 @@ body.dark {
 .scroll-target.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* 
+  Accessibility: Respect user's preference for reduced motion.
+  This will disable complex animations if the user has this setting enabled on their OS.
+*/
+@media (prefers-reduced-motion: reduce) {
+  .skill-item, #stars1, #stars2, #stars3 {
+    animation: none !important;
+  }
 }

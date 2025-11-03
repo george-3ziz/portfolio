@@ -1,97 +1,192 @@
+/* ===== Global Style + Background ===== */
 body {
     font-family: 'Poppins', sans-serif;
+    /* Set a base black background. The stars will be layered on top. */
+    background-color: #000;
 }
 
-/* --- Skills Carousel (Marquee) --- */
-.skills-carousel {
-    position: relative;
-    overflow: hidden; /* Hide the overflowing content */
+/* Glow effect on whole UI */
+body.dark {
+    /* The background is already dark, so this class might not be needed for background specifically */
+    background-color: #000;
 }
 
-/* Visual fade effect at the edges */
-.skills-carousel::before,
-.skills-carousel::after {
-    content: '';
-    position: absolute;
+/* ===== Starry Night Background ===== */
+#stars-container {
+    position: fixed;
     top: 0;
-    bottom: 0;
-    width: 100px; /* Width of the fade */
-    z-index: 2;
-}
-
-.skills-carousel::before {
     left: 0;
-    background: linear-gradient(to right, #fff, transparent);
+    width: 100%;
+    height: 100%;
+    z-index: -10; /* Place it behind all content */
+    overflow: hidden;
 }
 
-.skills-carousel::after {
-    right: 0;
-    background: linear-gradient(to left, #fff, transparent);
+/* Base for star layers */
+#stars1, #stars2, #stars3 {
+    position: absolute;
+    border-radius: 50%;
+    background: transparent;
+    animation: animate-stars 150s linear infinite;
 }
 
-/* Dark mode fade effect */
-.dark .skills-carousel::before {
-    background: linear-gradient(to right, #1f2937, transparent); /* gray-800 */
-}
-.dark .skills-carousel::after {
-    background: linear-gradient(to left, #1f2937, transparent); /* gray-800 */
-}
-
-.skills-track {
-    display: flex;
-    /* 12 items * 160px (120 width + 40 margin) = 1920px */
-    width: calc(160px * 24); 
-    animation: scroll 40s linear infinite; /* Continuous animation */
+/* Layer 1: Small, dense stars */
+#stars1 {
+    width: 0.5px; /* Smallest stars */
+    height: 0.5px;
+    animation-duration: 150s;
+    /* Increased number of smaller stars */
+    box-shadow: 7vw 8vh #fff, 89vw 9vh #fff, 6vw 3vh #fff, 51vw 2vh #00eaff, 1vw 38vh #fff, 7vw 3vh #fff, 88vw 23vh #00eaff, 43vw 46vh #fff, 50vw 42vh #fff, 8vw 7vh #00eaff, 63vw 3vh #fff, 20vw 23vh #fff, 91vw 3vh #00eaff, 42vw 20vh #fff, 4vw 40vh #fff, 1vw 23vh #00eaff, 9vw 9vh #fff, 80vw 13vh #fff, 23vw 81vh #fff, 12vw 63vh #00eaff, 71vw 4vh #fff, 66vw 19vh #fff, 94vw 56vh #00eaff, 32vw 99vh #fff, 5vw 55vh #fff, 48vw 67vh #00eaff, 82vw 78vh #fff, 99vw 89vh #fff, 3vw 12vh #00eaff, 18vw 47vh #fff, 56vw 33vh #fff, 78vw 51vh #00eaff, 33vw 27vh #fff, 87vw 68vh #fff, 45vw 82vh #00eaff, 19vw 92vh #fff, 69vw 73vh #fff, 96vw 21vh #00eaff, 28vw 5vh #fff, 73vw 15vh #fff, 53vw 58vh #00eaff, 14vw 88vh #fff, 37vw 44vh #fff, 84vw 2vh #00eaff, 2vw 19vh #fff, 60vw 94vh #fff, 92vw 48vh #00eaff, 47vw 71vh #fff, 75vw 38vh #fff, 10vw 29vh #00eaff, 30vw 61vh #fff, 85vw 8vh #fff, 50vw 50vh #00eaff;
 }
 
-.skills-carousel:hover .skills-track {
-    animation-play-state: paused; /* Pause on hover */
+/* Layer 2: Medium stars, less dense, slightly slower */
+#stars2 {
+    width: 1px; /* Medium stars */
+    height: 1px;
+    animation-duration: 200s;
+    /* Increased number of medium stars */
+    box-shadow: 4vw 45vh #ff00ff, 12vw 9vh #fff, 81vw 33vh #ff00ff, 43vw 86vh #fff, 90vw 4vh #fff, 38vw 7vh #ff00ff, 2vw 93vh #fff, 25vw 15vh #fff, 75vw 25vh #ff00ff, 55vw 65vh #fff, 95vw 85vh #ff00ff, 15vw 75vh #fff, 65vw 5vh #ff00ff, 40vw 50vh #fff, 80vw 95vh #ff00ff;
 }
 
+/* Layer 3: Large stars, sparse, slowest */
+#stars3 {
+    width: 1.5px; /* "Larger" stars */
+    height: 1.5px;
+    animation-duration: 250s;
+    /* Increased number of large stars */
+    box-shadow: 10vw 10vh 0px 1px #39ff14, 85vw 52vh 0px 1px #fff, 53vw 91vh 0px 1px #39ff14, 25vw 5vh 0px 1px #fff, 5vw 80vh 0px 1px #39ff14, 48vw 22vh 0px 1px #fff, 93vw 70vh 0px 1px #39ff14, 70vw 30vh 0px 1px #fff;
+}
+
+@keyframes animate-stars {
+    from {
+        transform: translateY(0px);
+    }
+    to {
+        transform: translateY(-2000px); /* Move stars up to simulate movement */
+    }
+}
+
+/* ===== Floating Skills Section ===== */
+#skills {
+    position: relative;
+    height: 70vh; /* Define a height for the floating area */
+    min-height: 500px;
+}
+
+.skills-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* ====== Skill Item ====== */
 .skill-item {
+    position: absolute; /* Each item is positioned absolutely */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 120px; /* Fixed width */
-    height: 120px; /* Fixed height */
-    margin: 15px 20px; /* Add vertical margin to prevent cutoff on scale */
-    background-color: #f8f9fa; /* gray-100 */
-    border-radius: 50%;
-    border: 1px solid #e5e7eb; /* gray-200 */
-    transition: transform 0.3s, box-shadow 0.3s;
-    flex-shrink: 0; /* Prevent items from shrinking */
+    width: 100px; /* Smaller size for floating */
+    height: 100px;
+    /* The animation-name will be set individually for each item */
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
 }
+
+/* Stagger animations for a random effect */
+/* Assigning different animation paths (float-1, float-2, etc.) to different icons */
+.skill-item:nth-child(1) { top: 10%; left: 15%; animation-name: float-1; animation-duration: 22s; animation-delay: -5s; }
+.skill-item:nth-child(2) { top: 20%; left: 80%; animation-name: float-2; animation-duration: 25s; animation-delay: -2s; }
+.skill-item:nth-child(3) { top: 60%; left: 5%; animation-name: float-3; animation-duration: 18s; animation-delay: -8s; }
+.skill-item:nth-child(4) { top: 70%; left: 60%; animation-name: float-4; animation-duration: 28s; animation-delay: -3s; }
+.skill-item:nth-child(5) { top: 5%; left: 40%; animation-name: float-1; animation-duration: 20s; animation-delay: -10s; }
+.skill-item:nth-child(6) { top: 80%; left: 90%; animation-name: float-2; animation-duration: 23s; animation-delay: 0s; }
+.skill-item:nth-child(7) { top: 40%; left: 25%; animation-name: float-3; animation-duration: 26s; animation-delay: -1s; }
+.skill-item:nth-child(8) { top: 50%; left: 75%; animation-name: float-4; animation-duration: 19s; animation-delay: -7s; }
+.skill-item:nth-child(9) { top: 90%; left: 20%; animation-name: float-1; animation-duration: 21s; animation-delay: -4s; }
+.skill-item:nth-child(10) { top: 30%; left: 50%; animation-name: float-2; animation-duration: 27s; animation-delay: -6s; }
+.skill-item:nth-child(11) { top: 75%; left: 35%; animation-name: float-3; animation-duration: 24s; animation-delay: -9s; }
+.skill-item:nth-child(12) { top: 15%; left: 95%; animation-name: float-4; animation-duration: 29s; animation-delay: -11s; }
+/* Positioning for new skills */
+.skill-item:nth-child(13) { top: 55%; left: 45%; animation-name: float-1; animation-duration: 21s; animation-delay: -12s; } /* C# */
+.skill-item:nth-child(14) { top: 85%; left: 5%; animation-name: float-2; animation-duration: 26s; animation-delay: -14s; } /* ASP.NET */
+.skill-item:nth-child(15) { top: 5%; left: 70%; animation-name: float-3; animation-duration: 23s; animation-delay: -1s; } /* SQL Server */
+.skill-item:nth-child(16) { top: 90%; left: 80%; animation-name: float-4; animation-duration: 20s; animation-delay: -15s; } /* React */
+.skill-item:nth-child(17) { top: 35%; left: 85%; animation-name: float-1; animation-duration: 28s; animation-delay: -13s; } /* Node.js */
+.skill-item:nth-child(18) { top: 65%; left: 70%; animation-name: float-2; animation-duration: 22s; animation-delay: -16s; } /* Docker */
+.skill-item:nth-child(19) { top: 5%; left: 5%; animation-name: float-3; animation-duration: 25s; animation-delay: -17s; } /* Azure */
+
 
 .skill-item:hover {
-    transform: scale(1.1);
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* shadow-lg */
-    z-index: 3; /* Ensure the hovered item is on top of the fade effect */
-    position: relative; /* Required for z-index to work */
+    animation-play-state: paused; /* Pause floating on hover */
+    transform: scale(1.15) !important; /* Enlarge on hover, !important to override animation transform */
+    z-index: 10;
 }
 
+/* Icon Glow */
 .skill-item i {
-    font-size: 3.5rem;
+    font-size: 50px; /* Slightly smaller icon */
+    transition: 0.3s ease-in-out;
+    animation: neon-glow 5s linear infinite;
 }
 
+.skill-item:hover i {
+    transform: scale(1.2);
+    animation: neon-glow-hover 5s linear infinite;
+}
+
+/* Text */
 .skill-item span {
     margin-top: 8px;
+    font-size: 14px;
     font-weight: 600;
-    font-size: 0.9rem;
-    color: #4b5563; /* gray-600 */
+    color: #fff; /* Ensure text is visible */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 }
 
-/* Dark mode styles for skill items */
-.dark .skill-item {
-    background-color: #374151; /* gray-700 */
-    border-color: #4b5563; /* gray-600 */
+/* ===== Multiple Floating Animations for Random Effect ===== */
+@keyframes float-1 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(20px, 40px) rotate(5deg); }
+    50% { transform: translate(-30px, -10px) rotate(-3deg); }
+    75% { transform: translate(10px, -30px) rotate(7deg); }
 }
 
-.dark .skill-item span {
-    color: #d1d5db; /* gray-300 */
+@keyframes float-2 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-35px, -25px) rotate(-8deg); }
+    50% { transform: translate(40px, 20px) rotate(10deg); }
+    75% { transform: translate(-10px, 30px) rotate(-5deg); }
 }
 
-/* --- Scroll animation styles --- */
+@keyframes float-3 { /* More circular path */
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(40px, 10px) rotate(6deg); }
+    50% { transform: translate(0px, -30px) rotate(0deg); }
+    75% { transform: translate(-40px, 10px) rotate(-6deg); }
+}
+
+@keyframes float-4 { /* Diagonal path */
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(45px, -45px) rotate(10deg); }
+}
+
+/* ===== Neon Glow Animation ===== */
+@keyframes neon-glow {
+    0%, 100% { filter: drop-shadow(0 0 2px #00eaff) drop-shadow(0 0 5px #00eaff); }
+    25% { filter: drop-shadow(0 0 2px #ff00ff) drop-shadow(0 0 5px #ff00ff); }
+    50% { filter: drop-shadow(0 0 2px #39ff14) drop-shadow(0 0 5px #39ff14); }
+    75% { filter: drop-shadow(0 0 2px #fff000) drop-shadow(0 0 5px #fff000); }
+}
+
+@keyframes neon-glow-hover {
+    0%, 100% { filter: drop-shadow(0 0 5px #00eaff) drop-shadow(0 0 10px #00eaff); }
+    25% { filter: drop-shadow(0 0 5px #ff00ff) drop-shadow(0 0 10px #ff00ff); }
+    50% { filter: drop-shadow(0 0 5px #39ff14) drop-shadow(0 0 10px #39ff14); }
+    75% { filter: drop-shadow(0 0 5px #fff000) drop-shadow(0 0 10px #fff000); }
+}
+
+/* Reveal animation */
 .scroll-target {
     opacity: 0;
     transform: translateY(50px);
@@ -101,15 +196,4 @@ body {
 .scroll-target.visible {
     opacity: 1;
     transform: translateY(0);
-}
-
-/* Animation keyframes for the continuous scroll */
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        /* Move by the width of the original 12 items */
-        transform: translateX(calc(-160px * 12));
-    }
 }

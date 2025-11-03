@@ -102,8 +102,11 @@ body.dark {
 
 @media (max-width: 768px) {
     .skill-item {
-        transform: scale(0.8); /* Scale down the items on mobile */
+        /* Reduce size on mobile for better layout and performance */
+        width: 80px;
+        height: 80px;
     }
+    .skill-item i { font-size: 40px; }
 }
 
 /* Stagger animations for a random effect */
@@ -140,12 +143,12 @@ body.dark {
 .skill-item i {
     font-size: 50px; /* Slightly smaller icon */
     transition: 0.3s ease-in-out;
-    animation: neon-glow 5s linear infinite;
+    animation: neon-glow 6s linear infinite; /* Use text-shadow based glow */
 }
 
 .skill-item:hover i {
     transform: scale(1.2);
-    animation: neon-glow-hover 5s linear infinite;
+    animation: neon-glow-hover 6s linear infinite; /* Use text-shadow based glow on hover */
 }
 
 /* Text */
@@ -186,17 +189,17 @@ body.dark {
 
 /* ===== Neon Glow Animation ===== */
 @keyframes neon-glow {
-    0%, 100% { filter: drop-shadow(0 0 2px #00eaff) drop-shadow(0 0 5px #00eaff); }
-    25% { filter: drop-shadow(0 0 2px #ff00ff) drop-shadow(0 0 5px #ff00ff); }
-    50% { filter: drop-shadow(0 0 2px #39ff14) drop-shadow(0 0 5px #39ff14); }
-    75% { filter: drop-shadow(0 0 2px #fff000) drop-shadow(0 0 5px #fff000); }
+    0%, 100% { text-shadow: 0 0 5px #00eaff, 0 0 10px #00eaff, 0 0 15px #00eaff; }
+    25% { text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 15px #ff00ff; }
+    50% { text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 15px #39ff14; }
+    75% { text-shadow: 0 0 5px #fff000, 0 0 10px #fff000, 0 0 15px #fff000; }
 }
 
 @keyframes neon-glow-hover {
-    0%, 100% { filter: drop-shadow(0 0 5px #00eaff) drop-shadow(0 0 10px #00eaff); }
-    25% { filter: drop-shadow(0 0 5px #ff00ff) drop-shadow(0 0 10px #ff00ff); }
-    50% { filter: drop-shadow(0 0 5px #39ff14) drop-shadow(0 0 10px #39ff14); }
-    75% { filter: drop-shadow(0 0 5px #fff000) drop-shadow(0 0 10px #fff000); }
+    0%, 100% { text-shadow: 0 0 8px #00eaff, 0 0 15px #00eaff, 0 0 25px #00eaff; }
+    25% { text-shadow: 0 0 8px #ff00ff, 0 0 15px #ff00ff, 0 0 25px #ff00ff; }
+    50% { text-shadow: 0 0 8px #39ff14, 0 0 15px #39ff14, 0 0 25px #39ff14; }
+    75% { text-shadow: 0 0 8px #fff000, 0 0 15px #fff000, 0 0 25px #fff000; }
 }
 
 /* Reveal animation */
